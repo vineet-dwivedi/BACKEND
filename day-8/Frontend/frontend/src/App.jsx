@@ -3,14 +3,19 @@ import axios from 'axios'
 
 const App = () => {
   const [notes, setNotes] = useState([])
-
-  useEffect(() => {
+  
+  function fetchNotes(){
     axios.get('http://localhost:3000/api/notes')
       .then(res => setNotes(res.data.notes))
       .catch(err => console.error(err))
+  }
+
+  useEffect(() => {
+    fetchNotes();
   }, [])
 
   return (
+    <>
     <div className="notes">
       {notes.map((note, index) => (
         <div className="note" key={index}>
@@ -18,7 +23,7 @@ const App = () => {
           <p>{note.description}</p>
         </div>
       ))}
-    </div>
+    </div></>
   )
 }
 
